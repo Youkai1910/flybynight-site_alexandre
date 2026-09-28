@@ -3,7 +3,7 @@
 
 //Parâmetros de conexão ao servidor MySQL
 $servidor = "localhost";
-$banco = "flybynight";
+$banco = "flybynight_completo";
 $usuario = "root";
 $senha = "senacpenha";
 
