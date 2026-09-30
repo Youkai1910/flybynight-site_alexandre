@@ -1,3 +1,12 @@
+<?php
+//fornecedores/editar.php
+
+//Acessar a URL e "pegar" o valor do parâmetro (id) existente nela
+// ATENÇÃO ao nome do parâmetro que você criou no link dinâmico.
+// Deve ser o mesmo
+$id = $_GET['id'];
+echo $id;
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
