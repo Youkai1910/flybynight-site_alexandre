@@ -1,11 +1,18 @@
 <?php
 //fornecedores/editar.php
 
+// Importando o arquivo de funções para fornecedores
+require_once "../src/fornecedor_crud.php";
+
 //Acessar a URL e "pegar" o valor do parâmetro (id) existente nela
 // ATENÇÃO ao nome do parâmetro que você criou no link dinâmico.
 // Deve ser o mesmo
 $id = $_GET['id'];
-echo $id;
+
+// 1) Chamamos a função e passamos o id para ela
+// 2) Ao término, a função DEVOLVE (retorna) um array com os dados  do fornecdor
+$fornecedor = buscarFornecedorPorId($conexao, $id);
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
