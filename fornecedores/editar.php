@@ -35,9 +35,12 @@ $fornecedor = buscarFornecedorPorId($conexao, $id);
         <!-- Modelo visual: os campos não são enviados nem persistidos. -->
         <!-- Os campos serão preenchidos com os dados do registro selecionado. -->
         <form action="" method="post">
+
+            <!-- Usamos um campo oculto (input hidden) para garantir que o formulário também possui o id do fornecedor -->
+            <input type="hidden" name="id" value="<?= $fornecedor['id'] ?>">
             <div>
                 <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="nome" maxlength="100" required>
+                <input value="<?= $fornecedor['nome'] ?>" type="text" name="nome" id="nome" maxlength="100" required>
             </div>
             <button type="submit">Atualizar</button>
         </form>
