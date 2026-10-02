@@ -1,3 +1,11 @@
+<?php
+// lojas/listar.php
+
+require_once __DIR__ . "/../src/loja_crud.php";
+
+// CORRIGIDO: A variável $conexao já vem pronta do conecta.php, não precisa chamar função!
+$lojas = buscarLojas($conexao);
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -12,7 +20,7 @@
     <?php
     $caminhoBase = '../';
     $secaoAtual = 'lojas';
-    require '../componentes/cabecalho.php';
+    require __DIR__ . '/../componentes/cabecalho.php';
     ?>
     <main>
         <h2>Lojas</h2>
@@ -30,7 +38,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Aqui serão geradas as linhas com os dados e as ações Editar e Excluir de cada registro. -->
+                    <?php if ($lojas): ?>
+                        <?php foreach ($lojas as $loja): ?>
+                            <tr>
+                                <td><?= (int) $loja['id'] ?></td>
+                                <td><?= htmlspecialchars($loja['nome'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td>
+                                    <a href="editar.php?id=<?= (int) $loja['id'] ?>">Editar</a>
+                                    <a href="excluir.php?id=<?= (int) $loja['id'] ?>" class="excluir">Excluir</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="3">Nenhuma loja cadastrada.</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>

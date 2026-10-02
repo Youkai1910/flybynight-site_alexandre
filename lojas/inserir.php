@@ -1,3 +1,19 @@
+<?php
+require_once __DIR__ . "/../src/loja_crud.php";
+$nome = '';
+$erro = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome = trim($_POST['nome'] ?? '');
+    if ($nome === '') {
+        $erro = 'Informe o nome da loja.';
+    } else {
+        inserirLoja($conexao, $nome);
+        header("Location: listar.php");
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -12,15 +28,17 @@
     <?php
     $caminhoBase = '../';
     $secaoAtual = 'lojas';
-    require '../componentes/cabecalho.php';
+    require __DIR__ . '/../componentes/cabecalho.php';
     ?>
     <main>
         <h2>Cadastrar loja</h2>
-        <!-- Modelo visual: os campos não são enviados nem persistidos. -->
+        <?php if ($erro !== ''): ?>
+            <p><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></p>
+        <?php endif; ?>
         <form action="" method="post">
             <div>
                 <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="nome" maxlength="100" required>
+                <input type="text" name="nome" id="nome" maxlength="100" value="<?= htmlspecialchars($nome, ENT_QUOTES, 'UTF-8') ?>" required>
             </div>
             <button type="submit">Salvar</button>
         </form>
