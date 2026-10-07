@@ -22,7 +22,6 @@ $produtos = buscarProdutos($conexao);
     <main>
         <h2>Produtos</h2>
         <div class="barra-acoes"><a class="botao" href="inserir.php">+ Novo produto</a></div>
-        <!-- Os registros serão carregados dinamicamente quando o back-end for implementado. -->
         <div class="area-tabela" tabindex="0">
             <table>
                 <caption>Relação de Produtos</caption>
@@ -36,7 +35,21 @@ $produtos = buscarProdutos($conexao);
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Aqui serão geradas as linhas com os dados e as ações Editar e Excluir de cada registro. -->
+                    <?php if (count($produtos) > 0): ?>
+                        <?php foreach ($produtos as $produto): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($produto['nome_produto'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td>R$ <?= number_format((float) $produto['preco'], 2, ',', '.') ?></td>
+                                <td><?= (int) $produto['quantidade'] ?></td>
+                                <td><?= htmlspecialchars($produto['nome_fornecedor'], ENT_QUOTES, 'UTF-8') ?></td>
+                                <td><a href="editar.php?id=<?= (int) $produto['id'] ?>">Editar</a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5">Nenhum produto cadastrado.</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
