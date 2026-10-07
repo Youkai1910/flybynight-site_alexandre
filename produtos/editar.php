@@ -40,6 +40,7 @@ $produto = buscarProdutoPorId($conexao, $id);
            No caso do campo textarea, coloque o valor dentro da tag.-->
            
         <form action="" method="post">
+            <input type="hidden" name="id" value="<?= $produto['id']?>">
             <div>
                 <label for="nome">Nome:</label>
                 <input value="<?= $produto['nome']?>" type="text" name="nome" id="nome" maxlength="100" required >
@@ -67,7 +68,7 @@ $produto = buscarProdutoPorId($conexao, $id);
                      6.2) 0 fornecedor daquele produto que está sendo exibido
                         já DEVE VIR SELECIONADO. Programe os recursos para isso acontecer. -->
                         <?php foreach($fornecedores as $fornecedor): ?>
-                        <option value="<?= $fornecedor['id'] ?>"> 
+                        <option <?= $fornecedor["id"] === $produto["fornecedor_id"] ? 'select' : '' ?> value="<?= $fornecedor['id'] ?>"> 
                             <?= $fornecedor['nome'] ?> 
                         </option>
                     <?php endforeach ?>
