@@ -1,3 +1,16 @@
+<?php
+//produtos/editar
+
+/* Exercicios */
+
+// 1) importar os arquivos de função de fornecedores e produtos
+
+// 2) Capturar e guardar o id do produto que será carregado/atualizado
+
+// 3) Chamar a função buscarFornecedores e receber  a lista de fornecedores (guarde em uma variavel chama $fornecedores)
+
+// 4) Chamar a função buscarProdutoId e receber os dados (guarde em uma variavel chamda $produto)
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -16,8 +29,10 @@
     ?>
     <main>
         <h2>Editar produto</h2>
-        <!-- Modelo visual: os campos não são enviados nem persistidos. -->
-        <!-- Os campos serão preenchidos com os dados do registro selecionado. -->
+        <!-- Parte 1 -->
+        <!-- 5) Exibir os dados do produto em cada  campo do formulário 
+           No caso dos campos input, use o atributo value.
+           No caso do campo textarea, coloque o valor dentro da tag.-->
         <form action="" method="post">
             <div>
                 <label for="nome">Nome:</label>
@@ -39,7 +54,12 @@
                 <label for="fornecedor">Fornecedor:</label>
                 <select name="fornecedor" id="fornecedor" required>
                     <option value="">Selecione</option>
-                    <!-- As opções serão preenchidas com os registros do banco de dados. -->
+                    <!-- PARTE 1 -->
+                     <!-- 6) DESAFIO 
+                      6.1) Usando foreach, acessa os $fornecedores e mostre na tag <option> os nomes de cada fornecedor. 
+                        No atributo value, coloque o id de cada fornecedor.
+                     6.2) 0 fornecedor daquele produto que está sendo exibido
+                        já DEVE VIR SELECIONADO. Programe os recursos para isso acontecer. -->
                 </select>
             </div>
             <button type="submit">Atualizar</button>

@@ -35,21 +35,18 @@ $produtos = buscarProdutos($conexao);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (count($produtos) > 0): ?>
-                        <?php foreach ($produtos as $produto): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($produto['nome_produto'], ENT_QUOTES, 'UTF-8') ?></td>
-                                <td>R$ <?= number_format((float) $produto['preco'], 2, ',', '.') ?></td>
-                                <td><?= (int) $produto['quantidade'] ?></td>
-                                <td><?= htmlspecialchars($produto['nome_fornecedor'], ENT_QUOTES, 'UTF-8') ?></td>
-                                <td><a href="editar.php?id=<?= (int) $produto['id'] ?>">Editar</a></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="5">Nenhum produto cadastrado.</td>
-                        </tr>
-                    <?php endif; ?>
+              <?php foreach($produtos as $produto): ?>
+                    <tr>
+                        <td> <?= $produto['nome_produto'] ?> </td>
+                        <td> <?= $produto['preco'] ?> </td>
+                        <td> <?= $produto['quantidade'] ?> </td>
+                        <td> <?= $produto['nome_fornecedor'] ?> </td>
+                        <td>
+                            <a href="editar.php?id=<?= $produto['id'] ?>">Editar</a>
+                            <a href="excluir.php?id=<?= $produto['id'] ?>">Excluir</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
