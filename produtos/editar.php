@@ -15,6 +15,24 @@ $fornecedores = buscarFornecedores($conexao);
 
 // 4) Chamar a função buscarProdutoId e receber os dados (guarde em uma variavel chamada $produto)
 $produto = buscarProdutoPorId($conexao, $id);
+
+// PARTE 2
+ 
+// 1) Detectar o acionamento do formulário de atualização
+ if($_SERVER["REQUEST_METHOD"] === "POST"){
+// 2) Capturar os dados do formulário
+ $nome = $_POST['nome'];
+$descricao = $_POST['descricao'];
+$preco = $_POST['preco'];
+$quantidade = $_POST['quantidade'];
+$fornecedor = $_POST['fornecedor'];
+// 3) Chamar a função atualizarProduto e passar os dados pra ela
+ atualizarProduto($conexao, $id, $nome, $descricao, $preco, $quantidade, $fornecedor);
+// 4) Redirecionar para a página listar produtos
+ header("Location: listar.php");
+exit;
+}
+// 5) Testar: tente atualizar dados de pelo menos 3 produtos
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
