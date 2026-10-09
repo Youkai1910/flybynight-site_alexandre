@@ -14,3 +14,21 @@ function buscarLojasProdutos(PDO $conexao): array
     $consulta = $conexao->query($sql);
     return $consulta->fetchAll();
 }
+function inserirLojaProduto(
+    PDO $conexao,
+    string $lojaId,
+    string $produtoId,
+    int $estoque   
+): bool{
+    $sql = "INSERT INTO lojas_produtos (loja_id, produto_id, estoque)
+            VALUES (:loja_id, :produto_id, :estoque)";
+            
+$consulta = $conexao->prepare($sql);
+
+    return $consulta->execute([
+        ":loja_id" => $lojaId,
+        ":produto_id" => $produtoId,
+        ":estoque" => $estoque
+    ]);
+   
+}
