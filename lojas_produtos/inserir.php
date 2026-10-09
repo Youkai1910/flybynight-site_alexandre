@@ -21,7 +21,7 @@
 
             <div>
                 <label for="loja">Loja:</label>
-                <select name="loja_id" id="loja" required>
+                <select name="loja" id="loja" required>
                     <option value="">Selecione</option>
                     <!-- As opções serão preenchidas com os registros do banco de dados. -->
                 </select>
@@ -29,7 +29,7 @@
 
             <div>
                 <label for="produto">Produto:</label>
-                <select name="produto_id" id="produto" required>
+                <select name="produto" id="produto" required>
                     <option value="">Selecione</option>
                     <!-- As opções serão preenchidas com os registros do banco de dados. -->
                 </select>

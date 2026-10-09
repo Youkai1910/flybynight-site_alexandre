@@ -5,3 +5,4 @@ $id = $_GET['id'];
 excluirProduto($conexao, $id);
 header("location:listar.php");
 exit;
+?>
