@@ -68,9 +68,9 @@ $produto = buscarProdutoPorId($conexao, $id);
                      6.2) 0 fornecedor daquele produto que está sendo exibido
                         já DEVE VIR SELECIONADO. Programe os recursos para isso acontecer. -->
                         <?php foreach($fornecedores as $fornecedor): ?>
-                        <option <?= $fornecedor["id"] === $produto["fornecedor_id"] ? 'select' : '' ?> value="<?= $fornecedor['id'] ?>"> 
+                        <option <?= $fornecedor["id"] === $produto["fornecedor_id"] ? 'selected' : '' ?> value="<?= $fornecedor['id'] ?>"> 
                             <?= $fornecedor['nome'] ?> 
-                        </option>
+                        </option> 
                     <?php endforeach ?>
                 </select>
             </div>
