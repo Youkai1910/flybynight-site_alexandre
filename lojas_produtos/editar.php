@@ -17,6 +17,8 @@ if (
     exit('Identificação do vínculo inválida.');
 }
 
+$lojaProduto = buscarLojasProdutosPorId($conexao, $lojaIdAntiga, $produtoIdAntigo);
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $lojaId = filter_input(INPUT_POST, 'loja', FILTER_VALIDATE_INT);
     $produtoId = filter_input(INPUT_POST, 'produto', FILTER_VALIDATE_INT);
