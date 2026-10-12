@@ -1,6 +1,7 @@
 <?php
 require_once "../src/loja_crud.php";
 require_once "../src/produto_crud.php";
+require_once "../src/loja_produto_crud.php";
 
 $lojas = buscarLojas($conexao);
 $produtos = buscarProdutos($conexao);
