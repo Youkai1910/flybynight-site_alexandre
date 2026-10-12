@@ -3,14 +3,16 @@ require_once "conecta.php";
 
 function buscarLojasProdutos(PDO $conexao): array
 {
-    $sql = "SELECT  
-                produtos.nome AS nome_produto, 
-                lojas_produtos.estoque,
-                lojas.nome AS nome_loja
-            FROM lojas_produtos JOIN lojas
-            ON lojas.id = lojas_produtos.loja_id
-            JOIN produtos ON produtos.id = lojas_produtos.produto_id
-            ORDER BY nome_produto";
+$sql = "SELECT
+            lojas_produtos.loja_id,
+            lojas_produtos.produto_id,
+            produtos.nome AS nome_produto,
+            lojas_produtos.estoque,
+            lojas.nome AS nome_loja
+        FROM lojas_produtos JOIN lojas
+        ON lojas.id = lojas_produtos.loja_id
+        JOIN produtos ON produtos.id = lojas_produtos.produto_id
+        ORDER BY nome_produto";
     $consulta = $conexao->query($sql);
     return $consulta->fetchAll();
 }
@@ -31,4 +33,39 @@ $consulta = $conexao->prepare($sql);
         ":estoque" => $estoque
     ]);
    
+}
+function buscarLojasProdutosPorId(PDO $conexao, int $lojaId, int $produtoId): ?array
+{
+    $sql = "SELECT * FROM lojas_produtos WHERE loja_id = :loja_id AND produto_id = :produto_id";
+    $consulta = $conexao->prepare($sql);
+    $consulta->execute([
+        ':loja_id' => $lojaId,
+        ':produto_id' => $produtoId
+    ]);
+    return $consulta->fetch() ?: null;
+}
+function atualizarLojaProduto(
+    PDO $conexao,
+    int $lojaIdAntiga,
+    int $produtoIdAntigo,
+    int $lojaId,
+    int $produtoId,
+    int $estoque
+): bool {
+    $sql = "UPDATE lojas_produtos
+            SET loja_id = :loja_id,
+                produto_id = :produto_id,
+                estoque = :estoque
+             WHERE loja_id = :loja_id_antiga
+              AND produto_id = :produto_id_antigo";
+
+    $consulta = $conexao->prepare($sql);
+
+    return $consulta->execute([
+        ':loja_id' => $lojaId,
+        ':produto_id' => $produtoId,
+        ':estoque' => $estoque,
+        ':loja_id_antiga' => $lojaIdAntiga,
+        ':produto_id_antigo' => $produtoIdAntigo
+    ]);
 }

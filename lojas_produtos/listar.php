@@ -4,6 +4,8 @@ require_once "../src/loja_crud.php";
 require_once "../src/loja_produto_crud.php";
 require_once "../src/produto_crud.php";
 
+
+
 $lojas = buscarLojas($conexao);
 $produtos = buscarProdutos($conexao);
 $lojas_produtos = buscarLojasProdutos($conexao);
@@ -49,7 +51,9 @@ $lojas_produtos = buscarLojasProdutos($conexao);
                             <td><?= htmlspecialchars($loja_produto['nome_produto'], ENT_QUOTES, 'UTF-8') ?></td>
                             <td> <?= htmlspecialchars($loja_produto['estoque'], ENT_QUOTES, 'UTF-8') ?> </td>
                             <td>
-                                <a href="editar.php?id=<?= $loja_produto['id'] ?>">Editar</a>
+                                <a href="editar.php?loja_id=<?= (int) $loja_produto['loja_id'] ?>&produto_id=<?= (int) $loja_produto['produto_id'] ?>">
+                                    Editar
+                                </a>
                                 <a href="excluir.php?id=<?= $loja_produto['id'] ?>" style="color: red;">Excluir</a>
                             </td>
                         </tr>
