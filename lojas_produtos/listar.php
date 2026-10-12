@@ -42,6 +42,19 @@ $lojas_produtos = buscarLojasProdutos($conexao);
                 </thead>
                 <tbody>
                     <!-- Aqui serão geradas as linhas com os dados e as ações Editar e Excluir de cada registro. -->
+                    <?php
+                    foreach ($lojas_produtos as $loja_produto): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($loja_produto['nome_loja'], ENT_QUOTES, 'UTF-8') ?></td>
+                            <td><?= htmlspecialchars($loja_produto['nome_produto'], ENT_QUOTES, 'UTF-8') ?></td>
+                            <td> <?= htmlspecialchars($loja_produto['estoque'], ENT_QUOTES, 'UTF-8') ?> </td>
+                            <td>
+                                <a href="editar.php?id=<?= $loja_produto['id'] ?>">Editar</a>
+                                <a href="excluir.php?id=<?= $loja_produto['id'] ?>" style="color: red;">Excluir</a>
+                            </td>
+                        </tr>
+
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
