@@ -69,3 +69,17 @@ function atualizarLojaProduto(
         ':produto_id_antigo' => $produtoIdAntigo
     ]);
 }
+
+function excluirLojaProduto(PDO $conexao, int $lojaId, int $produtoId): bool
+{
+    $sql = "DELETE FROM lojas_produtos
+            WHERE loja_id = :loja_id
+              AND produto_id = :produto_id";
+
+    $consulta = $conexao->prepare($sql);
+
+    return $consulta->execute([
+        ':loja_id' => $lojaId,
+        ':produto_id' => $produtoId
+    ]);
+}

@@ -54,7 +54,16 @@ $lojas_produtos = buscarLojasProdutos($conexao);
                                 <a href="editar.php?loja_id=<?= (int) $loja_produto['loja_id'] ?>&produto_id=<?= (int) $loja_produto['produto_id'] ?>">
                                     Editar
                                 </a>
-                                <a href="excluir.php?id=<?= $loja_produto['id'] ?>" style="color: red;">Excluir</a>
+
+                                <form action="excluir.php" method="post" class="form-excluir">
+                                    <input type="hidden" name="loja_id" value="<?= (int) $loja_produto['loja_id'] ?>">
+                                    <input type="hidden" name="produto_id" value="<?= (int) $loja_produto['produto_id'] ?>">
+                                    <input
+                                        type="submit"
+                                        value="Excluir"
+                                        class="acao-excluir"
+                                        onclick="return confirm('Deseja realmente excluir este vínculo?')">
+                                </form>
                             </td>
                         </tr>
 

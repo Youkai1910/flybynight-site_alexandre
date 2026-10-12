@@ -263,6 +263,38 @@ a.excluir:hover {
   color: #831b13;
 }
 
+.acao-excluir {
+  appearance: none;
+  display: inline-block;
+  width: auto;
+  margin-left: 16px;
+  padding: 8px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #b42318;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.acao-excluir:hover {
+  color: #831b13;
+}
+
+.form-excluir {
+  display: inline;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
 /* 7. Formulários */
 .mensagem-erro {
   padding: 12px 16px;
