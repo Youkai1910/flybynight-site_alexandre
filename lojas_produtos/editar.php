@@ -19,6 +19,11 @@ if (
 
 $lojaProduto = buscarLojasProdutosPorId($conexao, $lojaIdAntiga, $produtoIdAntigo);
 
+if ($lojaProduto === null) {
+    http_response_code(404);
+    exit('Vínculo não encontrado.');
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $lojaId = filter_input(INPUT_POST, 'loja', FILTER_VALIDATE_INT);
     $produtoId = filter_input(INPUT_POST, 'produto', FILTER_VALIDATE_INT);
@@ -70,7 +75,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <?php
 
                     foreach ($lojas as $loja): ?>
-                        <option value="<?= (int) $loja['id'] ?>">
+                        <option value="<?= (int) $loja['id'] ?>"
+                            <?= (int) $loja['id'] === (int) $lojaProduto['loja_id'] ? 'selected' : '' ?>>
                             <?= htmlspecialchars($loja['nome'], ENT_QUOTES, 'UTF-8') ?>
                         </option>
                     <?php endforeach; ?>
@@ -84,7 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <!-- As opções serão preenchidas com os registros do banco de dados. -->
                     <?php
                     foreach ($produtos as $produto): ?>
-                        <option value="<?= (int) $produto['id'] ?>">
+                        <option value="<?= (int) $produto['id'] ?>"
+                            <?= (int) $produto['id'] === (int) $lojaProduto['produto_id'] ? 'selected' : '' ?>>
                             <?= htmlspecialchars($produto['nome_produto'], ENT_QUOTES, 'UTF-8') ?>
                         </option>
                     <?php endforeach; ?>
@@ -92,7 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
             <div>
                 <label for="estoque">Estoque:</label>
-                <input type="number" name="estoque" id="estoque" min="0" step="1" required>
+                <input type="number" name="estoque" id="estoque" min="0" step="1"
+                    value="<?= (int) $lojaProduto['estoque'] ?>" required>
             </div>
             <button type="submit">Atualizar</button>
         </form>
