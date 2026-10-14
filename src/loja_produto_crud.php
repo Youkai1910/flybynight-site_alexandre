@@ -1,6 +1,7 @@
 <?php
 require_once "conecta.php";
 
+// Busca todos os registros de relacionamento entre lojas e produtos.
 function buscarLojasProdutos(PDO $conexao): array
 {
 $sql = "SELECT
@@ -14,19 +15,24 @@ $sql = "SELECT
         JOIN produtos ON produtos.id = lojas_produtos.produto_id
         ORDER BY nome_produto";
     $consulta = $conexao->query($sql);
+
+    // Retorna todos os resultados em formato de array.
     return $consulta->fetchAll();
 }
+
+// Insere um novo vínculo entre uma loja e um produto com estoque inicial.
 function inserirLojaProduto(
     PDO $conexao,
     string $lojaId,
     string $produtoId,
     int $estoque   
-): bool{
+): bool{ //bool é o tipo booleano apenas true ou false ele representa uma resposat binária
     $sql = "INSERT INTO lojas_produtos (loja_id, produto_id, estoque)
             VALUES (:loja_id, :produto_id, :estoque)";
             
 $consulta = $conexao->prepare($sql);
 
+    // Executa a inserção e retorna true/false conforme sucesso.
     return $consulta->execute([
         ":loja_id" => $lojaId,
         ":produto_id" => $produtoId,
@@ -34,7 +40,9 @@ $consulta = $conexao->prepare($sql);
     ]);
    
 }
-function buscarLojasProdutosPorId(PDO $conexao, int $lojaId, int $produtoId): ?array
+// Buscando uníco relacionamento loja/produto
+function buscarLojasProdutosPorId(PDO $conexao, int $lojaId, int $produtoId): ?array 
+// a ? significa em PHP que pode retornar a função array ou null quando não encontrar nada
 {
     $sql = "SELECT * FROM lojas_produtos WHERE loja_id = :loja_id AND produto_id = :produto_id";
     $consulta = $conexao->prepare($sql);
@@ -42,8 +50,10 @@ function buscarLojasProdutosPorId(PDO $conexao, int $lojaId, int $produtoId): ?a
         ':loja_id' => $lojaId,
         ':produto_id' => $produtoId
     ]);
+    // Retorna o registro ou null se não existir.
     return $consulta->fetch() ?: null;
 }
+// Atualiza os dados de um relacionamento
 function atualizarLojaProduto(
     PDO $conexao,
     int $lojaIdAntiga,
@@ -61,6 +71,7 @@ function atualizarLojaProduto(
 
     $consulta = $conexao->prepare($sql);
 
+   // Atualiza e retorna true caso consiga alterar, false 
     return $consulta->execute([
         ':loja_id' => $lojaId,
         ':produto_id' => $produtoId,
@@ -69,7 +80,7 @@ function atualizarLojaProduto(
         ':produto_id_antigo' => $produtoIdAntigo
     ]);
 }
-
+// Remove o vínculo entre uma loja e um produto
 function excluirLojaProduto(PDO $conexao, int $lojaId, int $produtoId): bool
 {
     $sql = "DELETE FROM lojas_produtos
@@ -78,6 +89,7 @@ function excluirLojaProduto(PDO $conexao, int $lojaId, int $produtoId): bool
 
     $consulta = $conexao->prepare($sql);
 
+  // Deleta o registro e retorna true/false
     return $consulta->execute([
         ':loja_id' => $lojaId,
         ':produto_id' => $produtoId
