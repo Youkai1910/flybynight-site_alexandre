@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
+
+require_once "../src/loja_produto_crud.php";
 require_once "../src/loja_crud.php";
 require_once "../src/produto_crud.php";
-require_once "../src/loja_produto_crud.php";
 
 $lojas = buscarLojas($conexao);
 $produtos = buscarProdutos($conexao);
@@ -9,7 +11,12 @@ $produtos = buscarProdutos($conexao);
 if($_SERVER["REQUEST_METHOD"] === "POST"){
     $loja = $_POST['loja'];
     $produto = $_POST['produto'];
-    $estoque = $_POST['estoque'];
+    $estoque = filter_input(INPUT_POST, 'estoque', FILTER_VALIDATE_INT);
+
+if ($estoque === false || $estoque === null || $estoque < 0) {
+    http_response_code(400);
+    exit('Estoque inválido.');
+}
 
     inserirLojaProduto($conexao, $loja, $produto, $estoque);
 

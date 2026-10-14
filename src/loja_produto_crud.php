@@ -18,68 +18,65 @@ $sql = "SELECT
 }
 function inserirLojaProduto(
     PDO $conexao,
-    string $lojaId,
-    string $produtoId,
+    string $lojas,
+    string $produtos,
     int $estoque   
-): bool{
+): void{
     $sql = "INSERT INTO lojas_produtos (loja_id, produto_id, estoque)
             VALUES (:loja_id, :produto_id, :estoque)";
             
 $consulta = $conexao->prepare($sql);
 
-    return $consulta->execute([
-        ":loja_id" => $lojaId,
-        ":produto_id" => $produtoId,
-        ":estoque" => $estoque
-    ]);
-   
+    $consulta->bindValue(':loja_id', $lojas);
+    $consulta->bindValue(':produto_id', $produtos);
+    $consulta->bindValue(':estoque', $estoque);
+
+    $consulta->execute();
+  
 }
-function buscarLojasProdutosPorId(PDO $conexao, int $lojaId, int $produtoId): ?array
+
+function buscarLojasProdutosPorId(PDO $conexao, int $loja_id, int $produto_id): array
 {
     $sql = "SELECT * FROM lojas_produtos WHERE loja_id = :loja_id AND produto_id = :produto_id";
     $consulta = $conexao->prepare($sql);
-    $consulta->execute([
-        ':loja_id' => $lojaId,
-        ':produto_id' => $produtoId
-    ]);
-    return $consulta->fetch() ?: null;
+    $consulta->bindValue(":loja_id", $loja_id);
+    $consulta->bindValue(":produto_id", $produto_id);
+    $consulta->execute();
+    $resultado = $consulta->fetch();
+    return $resultado ?: [];
 }
-function atualizarLojaProduto(
+
+
+function atualizarLojasProdutos(
     PDO $conexao,
     int $lojaIdAntiga,
     int $produtoIdAntigo,
-    int $lojaId,
-    int $produtoId,
+    int $lojaIdNova,
+    int $produtoIdNovo,
     int $estoque
-): bool {
+): void {
     $sql = "UPDATE lojas_produtos
-            SET loja_id = :loja_id,
-                produto_id = :produto_id,
+            SET loja_id = :loja_id_nova,
+                produto_id = :produto_id_novo,
                 estoque = :estoque
-             WHERE loja_id = :loja_id_antiga
+            WHERE loja_id = :loja_id_antiga
               AND produto_id = :produto_id_antigo";
 
     $consulta = $conexao->prepare($sql);
-
-    return $consulta->execute([
-        ':loja_id' => $lojaId,
-        ':produto_id' => $produtoId,
-        ':estoque' => $estoque,
-        ':loja_id_antiga' => $lojaIdAntiga,
-        ':produto_id_antigo' => $produtoIdAntigo
-    ]);
+    $consulta->bindValue(":loja_id_nova", $lojaIdNova, PDO::PARAM_INT);
+    $consulta->bindValue(":produto_id_novo", $produtoIdNovo, PDO::PARAM_INT);
+    $consulta->bindValue(":estoque", $estoque, PDO::PARAM_INT);
+    $consulta->bindValue(":loja_id_antiga", $lojaIdAntiga, PDO::PARAM_INT);
+    $consulta->bindValue(":produto_id_antigo", $produtoIdAntigo, PDO::PARAM_INT);
+    $consulta->execute();
 }
 
-function excluirLojaProduto(PDO $conexao, int $lojaId, int $produtoId): bool
+function excluirLojaProduto(PDO $conexao, int $lojaId, int $produtoId): void
 {
-    $sql = "DELETE FROM lojas_produtos
-            WHERE loja_id = :loja_id
-              AND produto_id = :produto_id";
-
+    $sql = "DELETE FROM lojas_produtos WHERE loja_id = :loja_id AND produto_id = :produto_id";
     $consulta = $conexao->prepare($sql);
-
-    return $consulta->execute([
-        ':loja_id' => $lojaId,
-        ':produto_id' => $produtoId
-    ]);
+    $consulta->bindValue(":loja_id", $lojaId, PDO::PARAM_INT);
+    $consulta->bindValue(":produto_id", $produtoId, PDO::PARAM_INT);
+    $consulta->execute();
 }
+

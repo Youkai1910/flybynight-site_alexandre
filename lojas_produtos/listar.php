@@ -1,14 +1,9 @@
 <?php
 // produtos/listar.php
-require_once "../src/loja_crud.php";
 require_once "../src/loja_produto_crud.php";
-require_once "../src/produto_crud.php";
 
-$lojas = buscarLojas($conexao);
-$produtos = buscarProdutos($conexao);
 $lojas_produtos = buscarLojasProdutos($conexao);
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -45,26 +40,14 @@ $lojas_produtos = buscarLojasProdutos($conexao);
                     <!-- Aqui serão geradas as linhas com os dados e as ações Editar e Excluir de cada registro. -->
                     <?php
                     foreach ($lojas_produtos as $loja_produto): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($loja_produto['nome_loja'], ENT_QUOTES, 'UTF-8') ?></td>
-                            <td><?= htmlspecialchars($loja_produto['nome_produto'], ENT_QUOTES, 'UTF-8') ?></td>
-                            <td> <?= htmlspecialchars($loja_produto['estoque'], ENT_QUOTES, 'UTF-8') ?> </td>
-                            <td>
-                                <a href="editar.php?loja_id=<?= (int) $loja_produto['loja_id'] ?>&produto_id=<?= (int) $loja_produto['produto_id'] ?>">
-                                    Editar
-                                </a>
-
-                                <form action="excluir.php" method="post" class="form-excluir">
-                                    <input type="hidden" name="loja_id" value="<?= (int) $loja_produto['loja_id'] ?>">
-                                    <input type="hidden" name="produto_id" value="<?= (int) $loja_produto['produto_id'] ?>">
-                                    <input
-                                        type="submit"
-                                        value="Excluir"
-                                        class="acao-excluir"
-                                        onclick="return confirm('Deseja realmente excluir este vínculo?')">
-                                </form>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td> <?= $loja_produto['nome_loja'] ?> </td>
+                        <td> <?= $loja_produto['nome_produto'] ?> </td>
+                        <td> <?= $loja_produto['estoque'] ?> </td>
+                        <td>
+                            <a href="editar.php?loja_id=<?= $loja_produto['loja_id'] ?>&produto_id=<?= $loja_produto['produto_id'] ?>">Editar</a>
+                            <a href="excluir.php?loja_id=<?= $loja_produto['loja_id'] ?>&produto_id=<?= $loja_produto['produto_id'] ?>" style="color: red;">Excluir</a>
+                        </td>
                     <?php endforeach; ?>
                 </tbody>
             </table>

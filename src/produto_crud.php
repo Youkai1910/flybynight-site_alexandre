@@ -53,9 +53,6 @@ function buscarProdutoPorId(PDO $conexao, int $id): array
 
 
 
-
-
-
 // função de atualizar os produtos
 function atualizarProduto(
     PDO $conexao,
