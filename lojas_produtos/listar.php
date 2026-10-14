@@ -1,5 +1,5 @@
 <?php
-// produtos/listar.php
+
 require_once "../src/loja_produto_crud.php";
 
 $lojas_produtos = buscarLojasProdutos($conexao);
