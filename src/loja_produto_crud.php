@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/conecta.php";
+require_once ".conecta.php";
 
 // Busca todos os registros de relacionamento entre lojas e produtos.
 function buscarLojasProdutos(PDO $conexao): array
