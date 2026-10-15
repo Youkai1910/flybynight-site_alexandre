@@ -1,14 +1,10 @@
 <?php
-<<<<<<< Updated upstream
 require_once "../src/loja_produto_crud.php";
 require_once "../src/loja_crud.php";
 require_once "../src/produto_crud.php";
-=======
 
-require_once "../src/loja_produto_crud.php";
->>>>>>> Stashed changes
-
-$lojas_produtos = buscarLojasProdutos($conexao);
+$lojas = buscarLojas($conexao);
+$produtos = buscarProdutos($conexao);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $loja = $_POST['loja'];
@@ -20,9 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit('Estoque inválido.');
     }
 
-inserirLojaProduto($conexao, $lojas, $produtos, $estoque);
-header("Location: loja_produto_crud.php" );
-exit;
+    inserirLojaProduto($conexao, $loja, $produto, $estoque);
+
+    header("Location: listar.php");
+    exit;
 }
 ?>
 

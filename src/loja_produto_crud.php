@@ -1,5 +1,5 @@
 <?php
-require_once ".conecta.php";
+require_once __DIR__ . "/conecta.php";
 
 // Busca todos os registros de relacionamento entre lojas e produtos.
 function buscarLojasProdutos(PDO $conexao): array
@@ -15,16 +15,12 @@ function buscarLojasProdutos(PDO $conexao): array
             JOIN produtos ON produtos.id = lojas_produtos.produto_id
             ORDER BY nome_produto";
 
-<<<<<<< Updated upstream
     $consulta = $conexao->query($sql);
-=======
->>>>>>> Stashed changes
     return $consulta->fetchAll();
 }
 
 function inserirLojaProduto(
     PDO $conexao,
-<<<<<<< Updated upstream
     string $lojaId,
     string $produtoId,
     int $estoque
@@ -91,21 +87,3 @@ function excluirLojasProdutos(PDO $conexao, int $lojaId, int $produtoId): void
         ":produto_id" => $produtoId
     ]);
 }
-=======
-    string $lojas,
-    string $produtos,
-    int $estoque, 
-): void{ 
-    $sql = "INSERT INTO lojas_produtos (loja_id, produto_id, estoque)
-            VALUES (:loja_id, :produto_id, :estoque)";
-
-            $consulta = $conexao->prepare($sql);
-
-            $consulta->bindValue(':loja_id', $lojas);
-            $consulta->bindValue(':produto_id', $produtos);
-            $consulta->bindValue(':estoque', $estoque);
-
-            $consulta->execute();
-            
-} 
->>>>>>> Stashed changes

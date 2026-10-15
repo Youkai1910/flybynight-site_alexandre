@@ -1,16 +1,12 @@
 <?php
-<<<<<<< Updated upstream
 
 require_once "../src/loja_produto_crud.php";
 
-=======
-// produtos/listar.php
-require_once "../src/loja_produto_crud.php";
->>>>>>> Stashed changes
 $lojas_produtos = buscarLojasProdutos($conexao);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +40,6 @@ $lojas_produtos = buscarLojasProdutos($conexao);
                     <!-- Aqui serão geradas as linhas com os dados e as ações Editar e Excluir de cada registro. -->
                     <?php
                     foreach ($lojas_produtos as $loja_produto): ?>
-<<<<<<< Updated upstream
                     <tr>
                         <td> <?= $loja_produto['nome_loja'] ?> </td>
                         <td> <?= $loja_produto['nome_produto'] ?> </td>
@@ -53,17 +48,6 @@ $lojas_produtos = buscarLojasProdutos($conexao);
                             <a href="editar.php?loja_id=<?= $loja_produto['loja_id'] ?>&produto_id=<?= $loja_produto['produto_id'] ?>">Editar</a>
                             <a href="excluir.php?loja_id=<?= $loja_produto['loja_id'] ?>&produto_id=<?= $loja_produto['produto_id'] ?>" style="color: red;">Excluir</a>
                         </td>
-=======
-                        <tr>
-                            <td><?= $loja_produto['loja'] ?></td>
-                            <td><?= $loja_produto['produto'] ?></td>
-                            <td><?= $loja_produto['estoque'] ?></td>
-                            <td>
-                                <a href="editar.php?=id<?= $loja_produto['loja_id'] ?>">Editar</a>
-                                <a href="excluir.php?=id<?= $loja_produto['produto_id'] ?>">Excluir</a>
-                            </td>
-                        </tr>
->>>>>>> Stashed changes
                     <?php endforeach; ?>
                 </tbody>
             </table>
