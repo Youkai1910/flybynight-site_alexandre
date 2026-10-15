@@ -35,7 +35,7 @@ function inserirLojaProduto(
     ]);
 }
 
-function buscarLojasProdutosPorId(PDO $conexao, int $lojaId, int $produtoId): ?array
+function buscarLojasProdutosPorId(PDO $conexao, int $lojaId, int $produtoId): array
 {
     $sql = "SELECT *
             FROM lojas_produtos
@@ -47,7 +47,7 @@ function buscarLojasProdutosPorId(PDO $conexao, int $lojaId, int $produtoId): ?a
         ":produto_id" => $produtoId
     ]);
 
-    return $consulta->fetch() ?: null;
+    return $consulta->fetch() ?: [];
 }
 
 function atualizarLojasProdutos(
